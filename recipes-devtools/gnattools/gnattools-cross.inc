@@ -1,4 +1,6 @@
-require gcc-configure-common.inc
+require ${COREBASE}/meta/recipes-devtools/gcc/gcc-configure-common.inc
+EXTRA_OECONF:append = " --disable-libada"
+
 
 EXTRA_OECONF_PATHS = "\
     --with-sysroot=/not/exist \
