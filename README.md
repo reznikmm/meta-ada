@@ -23,31 +23,22 @@ dnf install libstdc++-static
 ln -s libgnat_pic.a /usr/lib/gcc/x86_64-redhat-linux/14/adalib/libgnat.a
 ```
 
-* clone yocto
-* Apply `yocto-ada.patch`, copy GCC 14.2 patch `0099-libada.patch`, `libada` and `gnattools`:
-
-```shell
-patch -p1 < patches/yocto-ada.patch
-cp -v patches/0099-libada.patch poky/meta/recipes-devtools/gcc/gcc/
-cp -v *.bb *.inc poky/meta/recipes-devtools/gcc/
-```
-
+* clone yocto styhead
 * create new `build`
 ```shell
-source oe-init-build-env 
+source oe-init-build-env
 ```
 
-* Append `HOSTTOOLS`:
+* Append `meta-ada` layer
 ```shell
-echo 'HOSTTOOLS += "gnatmake gnatlink gnatbind gnatls"' >> conf/local.conf
+bitbake-layers add-layer ../meta-ada
 ```
 
 * Build `gcc-cross`, `libada`, `gnattools-cross`:
-
 ```shell
 bitbake gcc-cross-x86_64
 bitbake libada
 bitbake gnattools-cross
 ```
 
-* Then???
+* Then test???
