@@ -1,0 +1,35 @@
+diff --git a/meta/recipes-devtools/gcc/gcc-14.2.inc b/meta/recipes-devtools/gcc/gcc-14.2.inc
+index 4f505bef68..343bb0615f 100644
+--- a/meta/recipes-devtools/gcc/gcc-14.2.inc
++++ b/meta/recipes-devtools/gcc/gcc-14.2.inc
+@@ -68,7 +68,8 @@ SRC_URI = "${BASEURI} \
+            file://0023-Fix-install-path-of-linux64.h.patch \
+            file://0024-Avoid-hardcoded-build-paths-into-ppc-libgcc.patch \
+            file://0025-gcc-testsuite-tweaks-for-mips-OE.patch \
+-	   file://0026-gcc-Fix-c-tweak-for-Wrange-loop-construct.patch \
++           file://0026-gcc-Fix-c-tweak-for-Wrange-loop-construct.patch \
++           file://0099-libada.patch \
+            file://gcc.git-ab884fffe3fc82a710bea66ad651720d71c938b8.patch \
+ "
+ 
+diff --git a/meta/recipes-devtools/gcc/gcc-configure-common.inc b/meta/recipes-devtools/gcc/gcc-configure-common.inc
+index 5c79936242..30b1e44660 100644
+--- a/meta/recipes-devtools/gcc/gcc-configure-common.inc
++++ b/meta/recipes-devtools/gcc/gcc-configure-common.inc
+@@ -7,7 +7,7 @@ require gcc-shared-source.inc
+ 
+ # gcc 3.x expects 'f77', 4.0 expects 'f95', 4.1 and 4.2 expect 'fortran'
+ FORTRAN ?= ",fortran"
+-LANGUAGES ?= "c,c++${FORTRAN}"
++LANGUAGES ?= "c,c++,ada${FORTRAN}"
+ 
+ EXTRA_OECONF_BASE ?= ""
+ EXTRA_OECONF_PATHS ?= ""
+@@ -24,6 +24,7 @@ EXTRA_OECONF = "\
+     --with-gnu-ld \
+     --enable-shared \
+     --enable-languages=${LANGUAGES} \
++    --disable-libada \
+     --enable-threads=${GCCTHREADS} \
+     ${GCCMULTILIB} \
+     ${GCCPIE} \
