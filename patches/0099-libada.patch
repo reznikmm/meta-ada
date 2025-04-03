@@ -1,0 +1,45 @@
+Upstream-Status: Pending
+
+diff -aur a/gcc/configure b/gcc/configure
+--- a/gcc/configure	2025-03-27 17:46:26.498494359 +0200
++++ b/gcc/configure	2025-03-29 19:03:27.508493443 +0200
+@@ -15142,12 +15142,6 @@
+ for f in ${tmake_file}
+ do
+   case $f in
+-    */t-linux64 )
+-       if test -f ./config/$f
+-       then
+-         tmake_file_="${tmake_file_} ./config/$f"
+-       fi
+-       ;;
+     * )
+        if test -f ${srcdir}/config/$f
+        then
+diff -aur a/gcc/configure.ac b/gcc/configure.ac
+--- a/gcc/configure.ac	2025-03-27 17:46:25.530481925 +0200
++++ b/gcc/configure.ac	2025-03-29 19:03:08.770194853 +0200
+@@ -2371,12 +2371,6 @@
+ for f in ${tmake_file}
+ do
+   case $f in
+-    */t-linux64 )
+-       if test -f ./config/$f
+-       then
+-         tmake_file_="${tmake_file_} ./config/$f"
+-       fi
+-       ;;
+     * )
+        if test -f ${srcdir}/config/$f
+        then
+diff -aur a/libada/Makefile.in b/libada/Makefile.in
+--- a/libada/Makefile.in	2024-08-01 11:17:17.000000000 +0300
++++ b/libada/Makefile.in	2025-03-29 18:44:33.590357546 +0200
+@@ -42,6 +42,7 @@
+ toolexeclibdir = @toolexeclibdir@
+ enable_shared = @enable_shared@
+ 
++CC = @CC@
+ LN_S=@LN_S@
+ AWK=@AWK@
+ 
