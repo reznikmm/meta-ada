@@ -17,7 +17,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}:"
 SRC_URI = "file://source/hello.adb"
 S = "${WORKDIR}/source"
 
-DEPENDS = "libada gnattools-cross"
+DEPENDS = "libada"
 
 # NOTE: no Makefile found, unable to determine what needs to be done
 
@@ -28,9 +28,10 @@ do_configure () {
 
 do_compile () {
 	# Specify compilation commands here
-	${TARGET_PREFIX}gnatls -v --RTS=/home/max/yocto/poky/build/tmp/work/core2-64-poky-linux/hello/1.0/recipe-sysroot-native/usr/lib/gcc/x86_64-poky-linux/14.2.0
-	${TARGET_PREFIX}gnatmake -vh --RTS=/home/max/yocto/poky/build/tmp/work/core2-64-poky-linux/hello/1.0/recipe-sysroot-native/usr/lib/gcc/x86_64-poky-linux/14.2.0 -aI${S} hello.adb \
-         -largs --sysroot=/home/max/yocto/poky/build/tmp/work/core2-64-poky-linux/hello/1.0/recipe-sysroot
+	${TARGET_PREFIX}gnatls -v --RTS=${RECIPE_SYSROOT_NATIVE}/usr/lib/gcc/x86_64-poky-linux/14.2.0
+	${TARGET_PREFIX}gnatmake -vh --RTS=${RECIPE_SYSROOT_NATIVE}/usr/lib/gcc/x86_64-poky-linux/14.2.0 -aI${S} hello.adb \
+         -cargs {TOOLCHAIN_OPTIONS} ${HOST_CC_ARCH} ${CFLAGS} \
+         -largs {TOOLCHAIN_OPTIONS} ${HOST_LD_ARCH} ${LDFLAGS}
 }
 
 do_install () {
