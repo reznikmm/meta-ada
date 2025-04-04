@@ -34,6 +34,10 @@ do_compile () {
 
 do_install () {
 	# Specify install commands here
+	install -Dm0755 ${B}/hello ${D}/${bindir}/hello
 	:
 }
+
+## FIXME proper fix should be here
+INSANE_SKIP:${PN}-dbg = "buildpaths"
 
