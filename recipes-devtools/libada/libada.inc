@@ -1,4 +1,6 @@
 require ${COREBASE}/meta/recipes-devtools/gcc/gcc-configure-common.inc
+LANGUAGES =  ",ada"
+
 
 EXTRA_OECONF:append = " --disable-libada"
 
