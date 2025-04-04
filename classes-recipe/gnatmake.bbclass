@@ -2,4 +2,4 @@
 
 
 RDEPENDS:${PN}:append = "libada"
-DEPENDS:append = " libada" 
+DEPENDS:append = " libada"
