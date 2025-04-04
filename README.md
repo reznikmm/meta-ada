@@ -34,11 +34,10 @@ source oe-init-build-env
 bitbake-layers add-layer ../meta-ada
 ```
 
-* Build `gcc-cross`, `libada`, `gnattools-cross`:
+* Build `gcc-cross`, `libada`:
 ```shell
 bitbake gcc-cross-x86_64
 bitbake libada
-bitbake gnattools-cross
 ```
 
 * Then test???
