@@ -1,37 +1,29 @@
 Upstream-Status: Pending
 
-diff -aur a/gcc/configure b/gcc/configure
---- a/gcc/configure	2025-03-27 17:46:26.498494359 +0200
-+++ b/gcc/configure	2025-03-29 19:03:27.508493443 +0200
-@@ -15142,12 +15142,6 @@
- for f in ${tmake_file}
- do
-   case $f in
--    */t-linux64 )
--       if test -f ./config/$f
--       then
--         tmake_file_="${tmake_file_} ./config/$f"
--       fi
--       ;;
-     * )
-        if test -f ${srcdir}/config/$f
+diff -Naur a/gcc/configure a/gcc/configure
+--- a/gcc/configure	2025-04-06 10:45:52.482821737 +0300
++++ a/gcc/configure	2025-04-06 10:46:59.403913913 +0300
+@@ -15142,7 +15142,7 @@
+     */t-linux64 )
+        if test -f ./config/$f
         then
-diff -aur a/gcc/configure.ac b/gcc/configure.ac
---- a/gcc/configure.ac	2025-03-27 17:46:25.530481925 +0200
-+++ b/gcc/configure.ac	2025-03-29 19:03:08.770194853 +0200
-@@ -2371,12 +2371,6 @@
- for f in ${tmake_file}
- do
-   case $f in
--    */t-linux64 )
--       if test -f ./config/$f
--       then
 -         tmake_file_="${tmake_file_} ./config/$f"
--       fi
--       ;;
++         tmake_file_="${tmake_file_} $PWD/config/$f"
+        fi
+        ;;
      * )
-        if test -f ${srcdir}/config/$f
+diff -Naur a/gcc/configure.ac a/gcc/configure.ac
+--- a/gcc/configure.ac	2025-04-06 10:45:52.485821741 +0300
++++ a/gcc/configure.ac	2025-04-06 10:46:43.262891691 +0300
+@@ -2374,7 +2374,7 @@
+     */t-linux64 )
+        if test -f ./config/$f
         then
+-         tmake_file_="${tmake_file_} ./config/$f"
++         tmake_file_="${tmake_file_} $PWD/config/$f"
+        fi
+        ;;
+     * )
 diff -aur a/libada/Makefile.in b/libada/Makefile.in
 --- a/libada/Makefile.in	2024-08-01 11:17:17.000000000 +0300
 +++ b/libada/Makefile.in	2025-03-29 18:44:33.590357546 +0200
