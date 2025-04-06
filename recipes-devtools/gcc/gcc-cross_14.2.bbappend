@@ -1,5 +1,5 @@
 EXTRA_OECONF:append = " --disable-libada"
-LANGUAGES:append =  ",ada"
+LANGUAGES:append = ",ada"
 
 
 do_compile:append() {
