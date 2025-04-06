@@ -19,21 +19,13 @@ inherit gnatmake
 S = "${WORKDIR}/sources"
 UNPACKDIR = "${S}"
 
-do_configure () {
-	# Specify any needed configure commands here
-	:
-}
+do_configure[noexec] = "1"
 
 do_compile () {
-	# Specify compilation commands here
-	${TARGET_PREFIX}gnatls -v --RTS=${RECIPE_SYSROOT}/usr/lib/gcc/x86_64-poky-linux/14.2.0
-	${TARGET_PREFIX}gnatmake -vh --RTS=${RECIPE_SYSROOT}/usr/lib/gcc/x86_64-poky-linux/14.2.0 -aI${S} hello.adb \
-         -cargs ${TOOLCHAIN_OPTIONS} ${HOST_CC_ARCH} ${CFLAGS} \
-         -largs ${TOOLCHAIN_OPTIONS} ${HOST_LD_ARCH} ${LDFLAGS}
+        ${TARGET_PREFIX}gnatmake  --RTS=${RECIPE_SYSROOT}/${libdir}/gcc/${TARGET_PREFIX}/14.2.0 hello.adb
 }
 
 do_install () {
-	# Specify install commands here
 	install -Dm0755 ${B}/hello ${D}/${bindir}/hello
 	:
 }
