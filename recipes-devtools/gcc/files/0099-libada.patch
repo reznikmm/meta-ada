@@ -1,26 +1,26 @@
 Upstream-Status: Pending
 
-diff -Naur a/gcc/configure a/gcc/configure
---- a/gcc/configure	2025-04-06 10:45:52.482821737 +0300
-+++ a/gcc/configure	2025-04-06 10:46:59.403913913 +0300
-@@ -15142,7 +15142,7 @@
+diff -aur a/gcc/configure b/gcc/configure
+--- a/gcc/configure	2025-04-07 18:47:48.268714622 +0300
++++ b/gcc/configure	2025-04-07 18:51:40.669642133 +0300
+@@ -15145,7 +15145,7 @@
      */t-linux64 )
         if test -f ./config/$f
         then
 -         tmake_file_="${tmake_file_} ./config/$f"
-+         tmake_file_="${tmake_file_} $PWD/config/$f"
++         tmake_file_="${tmake_file_} \$(or \$(GCC_BUILD_DIR), .)/config/$f"
         fi
         ;;
      * )
-diff -Naur a/gcc/configure.ac a/gcc/configure.ac
---- a/gcc/configure.ac	2025-04-06 10:45:52.485821741 +0300
-+++ a/gcc/configure.ac	2025-04-06 10:46:43.262891691 +0300
+diff -aur a/gcc/configure.ac b/gcc/configure.ac
+--- a/gcc/configure.ac	2025-04-07 18:47:48.436721123 +0300
++++ b/gcc/configure.ac	2025-04-07 18:51:33.276418349 +0300
 @@ -2374,7 +2374,7 @@
      */t-linux64 )
         if test -f ./config/$f
         then
 -         tmake_file_="${tmake_file_} ./config/$f"
-+         tmake_file_="${tmake_file_} $PWD/config/$f"
++         tmake_file_="${tmake_file_} \$(or \$(GCC_BUILD_DIR), .)/config/$f"
         fi
         ;;
      * )
