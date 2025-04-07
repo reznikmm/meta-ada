@@ -24,6 +24,9 @@ EXTRACONFFUNCS += "extract_stashed_builddir"
 do_configure[depends] += "${COMPILERDEP}"
 
 do_compile () {
+        # To find config/*/t-linux64 in Makefile in libada
+        export GCC_BUILD_DIR="${B}/gcc"
+
         export AR_FOR_TARGET="${TARGET_SYS}-ar"
         export RANLIB_FOR_TARGET="${TARGET_SYS}-ranlib"
         export LD_FOR_TARGET="${TARGET_SYS}-ld"
@@ -40,6 +43,9 @@ do_compile () {
 }
 
 do_install () {
+        # To find config/*/t-linux64 in Makefile in libada
+        export GCC_BUILD_DIR="${B}/gcc"
+
         export INSTALL='install'
         export INSTALL_DATA='install -m 644'
         export AR_FOR_TARGET="${TARGET_SYS}-ar"
