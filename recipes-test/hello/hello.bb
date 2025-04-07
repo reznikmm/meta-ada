@@ -22,7 +22,10 @@ UNPACKDIR = "${S}"
 do_configure[noexec] = "1"
 
 do_compile () {
-        ${TARGET_PREFIX}gnatmake  --RTS=${RECIPE_SYSROOT}/${libdir}/gcc/${TARGET_SYS}/14.2.0 hello.adb
+        rm -v -rf *.ali
+        ${TARGET_PREFIX}gnatmake --RTS=${RECIPE_SYSROOT}/${libdir}/gcc/${TARGET_SYS}/14.2.0 hello.adb \
+         -cargs ${TOOLCHAIN_OPTIONS} ${HOST_CC_ARCH} ${CFLAGS} \
+         -largs ${TOOLCHAIN_OPTIONS} ${HOST_LD_ARCH} ${LDFLAGS}
 }
 
 do_install () {
