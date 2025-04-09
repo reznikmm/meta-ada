@@ -14,16 +14,20 @@ LIC_FILES_CHKSUM = ""
 
 SRC_URI = "file://hello.adb"
 
-inherit gnatmake
+# INHERIT += "gnatmake"
 
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
+DEPENDS += "libada"
+RDEPENDS_${PN} += "libada"
+
+S = "${WORKDIR}"
+#S = "${WORKDIR}/sources"
+#UNPACKDIR = "${S}"
 
 do_configure[noexec] = "1"
 
 do_compile () {
         rm -v -rf *.ali
-        ${TARGET_PREFIX}gnatmake --RTS=${RECIPE_SYSROOT}/${libdir}/gcc/${TARGET_SYS}/14.2.0 hello.adb \
+        ${TARGET_PREFIX}gnatmake --RTS=${RECIPE_SYSROOT}/${libdir}/gcc/${TARGET_SYS}/8.3.0 hello.adb \
          -cargs ${TOOLCHAIN_OPTIONS} ${HOST_CC_ARCH} ${CFLAGS} \
          -largs ${TOOLCHAIN_OPTIONS} ${HOST_LD_ARCH} ${LDFLAGS}
 }
@@ -34,5 +38,5 @@ do_install () {
 }
 
 ## FIXME proper fix should be here
-INSANE_SKIP:${PN}-dbg = "buildpaths"
+INSANE_SKIP_${PN}-dbg = "buildpaths"
 

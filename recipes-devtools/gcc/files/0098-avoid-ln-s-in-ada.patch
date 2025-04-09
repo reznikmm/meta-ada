@@ -1,0 +1,14 @@
+Upstream-Status: Pending
+
+diff -Naur a/gcc/ada/gcc-interface/Makefile.in b/gcc/ada/gcc-interface/Makefile.in
+--- a/gcc/ada/gcc-interface/Makefile.in	2018-03-07 14:10:24.000000000 +0200
++++ b/gcc/ada/gcc-interface/Makefile.in	2025-04-08 23:30:44.971171359 +0300
+@@ -2155,7 +2155,7 @@
+ 	-(cd tools; $(LN_S) ../sdefault.adb ../snames.ads ../snames.adb .)
+ 	-$(foreach PAIR,$(TOOLS_TARGET_PAIRS), \
+ 	          $(RM) tools/$(word 1,$(subst <, ,$(PAIR)));\
+-	          $(LN_S) $(fsrcpfx)ada/$(word 2,$(subst <, ,$(PAIR))) \
++	          $(CP) $(fsrcpfx)ada/$(word 2,$(subst <, ,$(PAIR))) \
+ 	                tools/$(word 1,$(subst <, ,$(PAIR)));)
+ 	touch ../stamp-tools
+ 

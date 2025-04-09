@@ -1,18 +1,17 @@
-EXTRA_OECONF:append = " --disable-libada"
-LANGUAGES:append = ",ada"
+EXTRA_OECONF .= " --disable-libada"
+LANGUAGES .= ",ada"
 
-
-do_compile:prepend() {
+do_compile_prepend() {
         # To find config/*/t-linux64 in Makefile in libada
         export GCC_BUILD_DIR="${B}/gcc"
 }
 
-do_install:prepend() {
+do_install_prepend() {
         # To find config/*/t-linux64 in Makefile in libada
         export GCC_BUILD_DIR="${B}/gcc"
 }
 
-do_compile:append() {
+do_compile_append() {
         oe_runmake -C "${B}/gcc" cross-gnattools
 }
 

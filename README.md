@@ -1,9 +1,9 @@
 # meta-ada
-Meta layer for Yocto which adds support for Ada. 
+Meta layer for Yocto (`warrior` branch) which adds support for Ada. 
 
 ## How to try
 
-To build the Ada crosscompiler, you need a native GNAT of the same (or previous) version. You can install it from Alire or from packages. If you install it in Fedora run:
+To build the Ada crosscompiler, you need a native GNAT of the same (or the previous) version. There is no 8.x compiler in in Alire. You can install it from packages. If you install it in Fedora 29 run:
 
 ```shell
 dnf install gcc-gnat libgnat-devel libstdc++-static
@@ -15,9 +15,13 @@ dnf install gcc-gnat libgnat-devel libstdc++-static
   ln -s libgnat_pic.a /usr/lib/gcc/x86_64-redhat-linux/14/adalib/libgnat.a
   ```
 
-* install rpms need for yocto
+* install rpms need for yocto (including `hostname` and `rpcgen`)
 
-* clone yocto styhead
+* clone yocto warrior
+  ```shell
+  git clone -b warrior git://git.yoctoproject.org/poky
+  ```
+
 * create new `build`
   ```shell
   source oe-init-build-env
@@ -25,6 +29,7 @@ dnf install gcc-gnat libgnat-devel libstdc++-static
 
 * Append `meta-ada` layer
   ```shell
+  git -C .. clone -b warrior https://github.com/reznikmm/meta-ada
   bitbake-layers add-layer ../meta-ada
   ```
 
@@ -36,7 +41,7 @@ dnf install gcc-gnat libgnat-devel libstdc++-static
 
 * Then test
   ```shell
-  echo 'IMAGE_INSTALL:append = " hello"' >> conf/local.conf
+  echo 'IMAGE_INSTALL_append = " hello"' >> conf/local.conf
   bitbake core-image-minimal
   runqemu qemux86-64
   # Login root

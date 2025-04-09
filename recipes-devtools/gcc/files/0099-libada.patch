@@ -3,7 +3,7 @@ Upstream-Status: Pending
 diff -aur a/gcc/configure b/gcc/configure
 --- a/gcc/configure	2025-04-07 18:47:48.268714622 +0300
 +++ b/gcc/configure	2025-04-07 18:51:40.669642133 +0300
-@@ -15145,7 +15145,7 @@
+@@ -12142,7 +12142,7 @@
      */t-linux64 )
         if test -f ./config/$f
         then
@@ -15,7 +15,7 @@ diff -aur a/gcc/configure b/gcc/configure
 diff -aur a/gcc/configure.ac b/gcc/configure.ac
 --- a/gcc/configure.ac	2025-04-07 18:47:48.436721123 +0300
 +++ b/gcc/configure.ac	2025-04-07 18:51:33.276418349 +0300
-@@ -2374,7 +2374,7 @@
+@@ -1906,7 +1906,7 @@
      */t-linux64 )
         if test -f ./config/$f
         then
@@ -27,7 +27,7 @@ diff -aur a/gcc/configure.ac b/gcc/configure.ac
 diff -aur a/libada/Makefile.in b/libada/Makefile.in
 --- a/libada/Makefile.in	2024-08-01 11:17:17.000000000 +0300
 +++ b/libada/Makefile.in	2025-03-29 18:44:33.590357546 +0200
-@@ -42,6 +42,7 @@
+@@ -40,6 +40,7 @@
  toolexeclibdir = @toolexeclibdir@
  enable_shared = @enable_shared@
  

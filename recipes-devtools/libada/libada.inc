@@ -1,8 +1,8 @@
 require ${COREBASE}/meta/recipes-devtools/gcc/gcc-configure-common.inc
-LANGUAGES =  ",ada"
+LANGUAGES += ",ada"
 
 
-EXTRA_OECONF:append = " --disable-libada"
+EXTRA_OECONF += " --disable-libada"
 
 EXTRA_OECONF_PATHS = "\
     --with-sysroot=/not/exist \
@@ -49,14 +49,16 @@ do_install () {
         export INSTALL='install'
         export INSTALL_DATA='install -m 644'
         export AR_FOR_TARGET="${TARGET_SYS}-ar"
+        export RANLIB_FOR_TARGET="${TARGET_SYS}-ranlib"
+
 	cd ${B}/${TARGET_SYS}/libada/
-	oe_runmake 'DESTDIR=${D}' MULTIBUILDTOP=${B}/${TARGET_SYS}/libada/ install-libada
+	oe_runmake 'DESTDIR=${D}' MULTIBUILDTOP=${B}/${TARGET_SYS}/libada/ install-gnatlib
 	chown -R root:root ${D}
 }
 
 # avoid virtual/libc
 INHIBIT_DEFAULT_DEPS = "1"
-DEPENDS = "virtual/${HOST_PREFIX}gcc virtual/${HOST_PREFIX}compilerlibs"
+DEPENDS = "gcc-runtime gcc-cross-${TARGET_ARCH}"
 
 BBCLASSEXTEND = "nativesdk"
 
@@ -67,22 +69,22 @@ PACKAGES = "\
     ${PN}-staticdev \
 "
 
-LICENSE:${PN} = "GPL-3.0-with-GCC-exception"
-LICENSE:${PN}-dev = "GPL-3.0-with-GCC-exception"
-LICENSE:${PN}-dbg = "GPL-3.0-with-GCC-exception"
+#LICENSE:${PN} = "GPL-3.0-with-GCC-exception"
+#LICENSE:${PN}-dev = "GPL-3.0-with-GCC-exception"
+#LICENSE:${PN}-dbg = "GPL-3.0-with-GCC-exception"
 
-FILES:${PN} = "${libdir}/gcc/${TARGET_SYS}/${BINV}/adalib/libgna*-*.so"
-FILES:${PN}-dev = "\
+FILES_${PN} = "${libdir}/gcc/${TARGET_SYS}/${BINV}/adalib/libgna*-*.so"
+FILES_${PN}-dev = "\
     ${libdir}/gcc/${TARGET_SYS}/${BINV}/adainclude/* \
     ${libdir}/gcc/${TARGET_SYS}/${BINV}/adalib/*.ali \
     ${libdir}/gcc/${TARGET_SYS}/${BINV}/adalib/libgnat.so \
     ${libdir}/gcc/${TARGET_SYS}/${BINV}/adalib/libgnarl.so \
     ${libdir}/gcc/${TARGET_SYS}/${BINV}/ada_target_properties \
 "
-FILES:${PN}-staticdev = "${libdir}/gcc/${TARGET_SYS}/${BINV}/adalib/*.a"
+FILES_${PN}-staticdev = "${libdir}/gcc/${TARGET_SYS}/${BINV}/adalib/*.a"
 
-INSANE_SKIP:${MLPREFIX}${PN} = "ldflags"
-INSANE_SKIP:${MLPREFIX}${PN}-dbg = "buildpaths"
+INSANE_SKIP_${MLPREFIX}${PN} = "ldflags"
+INSANE_SKIP_${MLPREFIX}${PN}-dbg = "buildpaths"
 
 do_package_write_ipk[depends] += "virtual/${MLPREFIX}libc:do_packagedata"
 do_package_write_deb[depends] += "virtual/${MLPREFIX}libc:do_packagedata"
