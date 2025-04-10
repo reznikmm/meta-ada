@@ -1,0 +1,39 @@
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - '*[0-9]'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build Ada toolchain
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: warrior
+          repository: yoctoproject/poky
+          path: poky
+
+      - uses: actions/checkout@v4
+        with:
+          ref: warrior
+          path: poky/meta-ada
+
+      - name: Build
+        uses: ./poky/meta-ada/.github/actions/build-ada
+
+      - uses: actions/upload-artifact@v4
+        with:
+          path: artifacts/*.tgz
+
+      - name: Creates a GitHub release and attachments
+        if: github.ref_type == 'tag'
+        run: |
+          cd poky/meta-ada
+          gh release create ${GITHUB_REF##*/} $GITHUB_WORKSPACE/artifacts/*.tgz
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

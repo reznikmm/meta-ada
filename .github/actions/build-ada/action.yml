@@ -1,0 +1,6 @@
+name: 'Build Ada'
+description: 'Build Ada toolchain in Yocto'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  entrypoint: poky/meta-ada/.github/workflows/build.sh
